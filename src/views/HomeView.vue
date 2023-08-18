@@ -1,124 +1,171 @@
-<script >
+<template>
+    <div id="homepage">
+        <navbar />
+        <div class="table-position">
+            <div class="table-container">
+                <div class="table-title">
+                    <h2 id="table-heading">User table</h2>
+                </div>
+                <div class="table-header">
+                    <div class="username-header header-cell cell username-column">
+                        <h3 class="username-header-text">Username</h3>
+                    </div>
+                    <div class="email-header header-cell cell email-column">
+                        <h3 class="email-header-text">Email</h3>
+                    </div>
+                    <div class="phonenumber-header header-cell cell phonenumber-column">
+                        <h3 class="phonenumber-header-text">Phone number</h3>
+                    </div>
+                    <div class="town-header header-cell cell town-column">
+                        <h3 class="town-header-text">Town</h3>
+                    </div>
+                    <div class="actions-header header-cell cell actions-column">
+                        <h3 class="actions-header-text">Actions</h3>
+                    </div>
+                </div>
+                <div class="table-body" v-for="user in users" :key="user.id">
+                    <div class="username-record body-cell cell username-column">
+                        <p class="username-text">{{ user.username }}</p>
+                    </div>
+                    <div class="email-record body-cell cell email-column">
+                        <p class="email-text">{{ user.email }}</p>
+                    </div>
+                    <div class="phonenumber-record body-cell cell phonenumber-column">
+                        <p class="phonenumber-text">{{ user.phonenumber }}</p>
+                    </div>
+                    <div class="town-record body-cell cell town-column">
+                        <p class="town-text">{{ user.town }}</p>
+                    </div>
+                    <div class="action-record body-cell cell actions-column">
+                        <button>Update</button>
+                        <button>Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import navbar from '../components/Navigationbar.vue'
 import axios from 'axios'
 
 export default {
-  data() {
-    return {
-      user: {
-        name: "",
-        email: "",
-        password: "",
-        townid: null
-      },
-      towns: [],
-      errors: [],
-      baseUrl: "http://127.0.0.1:8000/api",
-      
+    components: {
+        navbar,
+    },
+    data() {
+        return {
+            users: [],
+            errors: [],
+            baseUrl: "http://127.0.0.1:8000/api"
+        }
+    },
+    async mounted() {
+        try {
+            const response = await axios.get(this.baseUrl + '/getUserPhoneTown');
+            this.users = response.data;
+        } catch (error) {
+            this.errors.push(error);
+        }
     }
-  },
-  mounted() {
-    axios
-      .get(this.baseUrl + '/readAllTowns')
-      .then(response => (this.towns = response.data))
-      .catch(error => this.errors = error)
-  },
-  methods:{
-    formdataprocessing(){
-      console.log(this.user);
-      axios
-      .post(this.baseUrl + '/createUser', this.user)
-      .then(response => (console.log(response)))
-      .catch(error => this.errors = error);
-      console.log(this.errors);
-    }
-  }
 }
 </script>
 
-<template>
-  <div id="homeview">
-    <div class="form-container">
-      <div class="form-heading">
-        <h2 id="form-heading">User registration form</h2>
-      </div>
-      <form name="user-registration" autocomplete="off" >
-        <div class="form-item">
-          <label for="username">Name: </label>
-          <input type="text" v-model="user.name" id="username" name="username" class="input-text-field" required placeholder="Enter your full name">
-        </div>
-        <div class="form-item">
-          <label for="email">Email: </label>
-          <input type="email" id="email" v-model="user.email" name="email" class="input-text-field" required placeholder="johndoe@example.com">
-        </div>
-        <div class="form-item">
-          <label for="town-selection">Towns: </label>
-          <select v-model="user.townid" name="town-selection" id="town-selection" class="input-text-field" placeholder="Pick a town">
-            <option disabled value="">Please select an option</option>
-            <option v-for="town in towns" :key="town.id" :value="town.id">
-              {{ town.name }}
-            </option>
-          </select>
-        </div>
-        <div class="form-item">
-          <label for="password">Password: </label>
-          <input type="password" v-model="user.password" id="password" name="password" class="input-text-field" required placeholder="Enter your password">
-        </div>
-        <div class="form-item">
-          <button type="submit" @click.prevent="formdataprocessing">Submit</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</template>
-
-
 <style scoped>
-#homeview {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.table-position{
+    margin-top: 37px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.form-container {
-  background-color: rgb(222, 222, 222);
-  height: fit-content;
-  width: fit-content;
-  padding-left: 80px;
-  padding-right: 80px;
-  padding-top: 60px;
-  padding-bottom: 60px;
-  border: 3px solid rgb(157, 157, 157);
-  border-radius: 20px;
-  box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.4)
+.table-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    border: 3px solid rgb(66, 66, 66);
+    border-radius: 5px;
+}
+.table-title{
+    background-color: rgb(182, 182, 182);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
 
-.user-registration {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
+.table-header{
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    width: 100%;
+    border-bottom: 3px solid rgb(66, 66, 66);
+    border-top: 3px solid rgb(66, 66, 66);
 }
 
-.form-item{
-  margin: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
+.table-body{
+    display: flex;
+    flex-direction: row;
+    border-bottom: 2px solid black;
+    width: 100%;
+    height: fit-content;
+    transition: background-color 0.2s ease-in-out
 }
 
-.input-text-field{
-  font-size: 110%;
-  height: 30px;
-  min-width: 340px;
-  border-radius: 6px;
-  border: 2px solid rgb(112, 112, 112);
+.table-body:hover, .table-body:focus{
+    background-color: rgb(159, 159, 159);
 }
 
-.input-text-field:focus, .input-text-field:hover, input-text-field:checked{
-  border-color: rgb(58, 147, 243);
+.header-cell{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(112, 112, 112);
+    
 }
 
-.form-heading{
-  text-align: center
+.header-cell:hover, .header-cell:focus{
+    background-color: rgb(169, 213, 240);
+}
+
+.body-cell:hover, .body-cell:focus{
+    background-color: rgb(169, 213, 240);
+}
+
+.cell{
+    min-width: 70px;
+    height: auto;
+    word-wrap: break-word;
+    padding: 6px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.username-column{
+    width: 25%;
+    border-right: 2px solid black;
+}
+
+.email-column{
+    width: 43%;
+    border-right: 2px solid black;
+}
+
+.phonenumber-column{
+    width: 10%;
+    border-right: 2px solid black;
+}
+
+.town-column{
+    width: 10%;
+    border-right: 2px solid black;
+}
+.actions-column{
+    width: 12%
 }
 </style>
