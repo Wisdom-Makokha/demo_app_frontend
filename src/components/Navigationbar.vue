@@ -5,39 +5,36 @@
                 <router-link to="/" class="home route">Home</router-link>
             </div>
             <div class="other-routes">
-                <div class="route-container more-routes">
-                    <div>More</div>
+                <div class="dropdown-menu route-container">
+                    <input type="checkbox" id="dropdown">
+                    <label for="dropdown" class="dropdown-button">
+                        <span class="route">More options</span>
+                        <span class="arrow"></span>
+                    </label>
                     <div class="dropdown-container">
-                        <div class="dropdown-route">
-                            <a>Link 1</a>
+                        <div class="dropdown-route-container register-container">
+                            <router-link to="/userregistrationform" class="dropdown-route register">Register</router-link>
                         </div>
-                        <div class="dropdown-route">
-                            <a>Link 2</a>
-                        </div>
-                        <div class="dropdown-route">
-                            <a>Link 3</a>
+                        <div class="dropdown-route-container">
+                            <router-link to="/userstable" class="dropdown-route">Users</router-link>
                         </div>
                     </div>
                 </div>
                 <div class="route-container about-container">
                     <router-link to="/about" class="route about">About</router-link>
                 </div>
-                <div class="route-container register-container">
-                    <router-link to="/userregistrationform" class="route register">Register</router-link>
-                </div>
-
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-#navigationbar{
+#navigationbar {
     top: 0;
-    
+
 }
 
-.navigation-container{
+.navigation-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -45,61 +42,135 @@
     width: 100%;
     height: fit-content;
     border-bottom: 2px solid rgba(79, 79, 79, 0.4);
-    background-color: rgba(45, 45, 45, 0.4);
+    background-color: rgba(34, 34, 34, 0.5);
     position: sticky;
     box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.4)
 }
 
-.route-container{
-    padding-left: 20px;
-    padding-right: 20px;
+.route-container {
+    min-width: 70px;
+    height: 22px;
+    padding-left: 15px;
+    padding-right: 15px;
     padding-top: 18px;
     padding-bottom: 5px;
+    margin: 3px;
+    text-align: center;
+    cursor: pointer;
 }
 
-.route{
+.route {
     text-decoration: none;
     font-size: 120%;
     color: black;
     transition: color 0.4s;
 }
 
-.route:hover, .route:focus{
-    color: rgb(58, 147, 243)
+.route:hover {
+    color: white;
 }
 
-.dropdown-container{
-    background-color: rgba(45, 45, 45, 0.8);
-    max-height: 0;
-    overflow: hidden;
-    position: absolute;
-    box-sizing: border-box;
-    transition: all 0.4s linear
+input[type="checkbox"]:checked + label >.route{
+    color: white;
 }
 
-.more-routes:hover >.dropdown-container{
-    max-height: 100px;
-    border: 2px solid rgba(79, 79, 79, 0.4);
+.dropdown-menu {
+    position: relative;
+}
+
+input[type="checkbox"]{
+    opacity: 0;
+    position: absolute
+}
+
+.dropdown-button{
     display: flex;
-    flex-direction: column;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
 }
 
-.other-routes{
+.dropdown-container {
+    max-height: 0;
+    min-width: 70px;
+    max-width: fit-content;
+    overflow: hidden;
     display: flex;
-    padding-right: 6.8%;
+    flex-direction: column;
+    position: absolute;
+    margin-top: 9px;
+    left: inherit;
+    border: 0px solid transparent;
+    transition-property: max-height, border;
+    transition-duration: 0.6s;
+    transition-timing-function: linear;
+    background-color: rgb(66, 66, 66)
 }
 
-.home-container{
-    padding-left: 8.8%;
+.arrow{
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid black;
+    transition: border-top ease-in-out 0.6s, transform ease-in-out 0.6s;
 }
 
-.home{
+input[type="checkbox"]:hover + label >.arrow{
+    transform: rotate(180deg);
+    border-top-color: white;
+}
+
+input[type="checkbox"]:checked + label >.arrow{
+    transform: rotate(180deg);
+    border-top-color: white;
+}
+
+.dropdown-menu:hover >.dropdown-container{
+    max-height: 100px;
+    border: 1px solid rgb(66, 66, 66);
+}
+
+input[type="checkbox"]:checked ~.dropdown-container{
+    max-height: 100px;
+    border: 1px solid rgb(66, 66, 66);
+}
+
+.dropdown-route-container{
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 7px;
+    padding-bottom: 4px;
+    text-align: center;
+    border-bottom: 2px solid rgb(40, 40, 40);
+    background-color: rgba(143, 143, 143, 0.8);
+}
+
+.dropdown-route-container:hover{
+    background-color: rgba(176, 176, 176, 0.9);
+}
+
+.dropdown-route {
+    text-decoration: none;
+    font-size: 120%;
+    color: black;
+    transition: color 0.4s;
+}
+
+.dropdown-route:hover{
+    color: white;
+}
+
+.other-routes {
+    display: flex;
+    margin-right: 6.8%;
+}
+
+.home-container {
+    margin-left: 8.8%;
+}
+
+.home {
     font-weight: 140%;
     font-size: 140%;
 }
-
 </style>
 
 <script>

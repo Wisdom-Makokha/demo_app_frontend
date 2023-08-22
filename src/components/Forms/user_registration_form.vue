@@ -14,6 +14,8 @@ export default {
         password: "",
         townid: null
       },
+      name: "",
+      email: "",
       towns: [],
       errors: [],
       baseUrl: "http://127.0.0.1:8000/api",

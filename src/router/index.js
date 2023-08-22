@@ -21,6 +21,11 @@ const router = createRouter({
       path: '/userregistrationform',
       name: 'userregistrationform',
       component: () => import('../components/Forms/user_registration_form.vue')
+    },
+    {
+      path: '/userstable',
+      name: 'userstable',
+      component: () => import('../views/usertables.vue')
     }
   ]
 })
