@@ -33,6 +33,8 @@ export default {
         .then(response => (console.log(response)))
         .catch(error => this.errors = error);
       console.log(this.errors);
+      
+      formreset();
     },
     formreset() {
       this.user.name = "";

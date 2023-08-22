@@ -5,12 +5,18 @@
                 <router-link to="/" class="home route">Home</router-link>
             </div>
             <div class="other-routes">
-                <div class="route-container">
-                    <a class="route more">More</a>
-                    <div class="dropdown">
-                        <a>Link 1</a>
-                        <a>Link 2</a>
-                        <a>Link 3</a>
+                <div class="route-container more-routes">
+                    <div>More</div>
+                    <div class="dropdown-container">
+                        <div class="dropdown-route">
+                            <a>Link 1</a>
+                        </div>
+                        <div class="dropdown-route">
+                            <a>Link 2</a>
+                        </div>
+                        <div class="dropdown-route">
+                            <a>Link 3</a>
+                        </div>
                     </div>
                 </div>
                 <div class="route-container about-container">
@@ -60,6 +66,24 @@
 
 .route:hover, .route:focus{
     color: rgb(58, 147, 243)
+}
+
+.dropdown-container{
+    background-color: rgba(45, 45, 45, 0.8);
+    max-height: 0;
+    overflow: hidden;
+    position: absolute;
+    box-sizing: border-box;
+    transition: all 0.4s linear
+}
+
+.more-routes:hover >.dropdown-container{
+    max-height: 100px;
+    border: 2px solid rgba(79, 79, 79, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
 }
 
 .other-routes{
