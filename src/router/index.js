@@ -26,6 +26,11 @@ const router = createRouter({
       path: '/userstable',
       name: 'userstable',
       component: () => import('../views/usertables.vue')
+    },
+    {
+      path: '/login',
+      name: 'loginform',
+      component: () => import('../components/Forms/login_form.vue')
     }
   ]
 })

@@ -12,6 +12,7 @@ export default {
         name: "",
         email: "",
         password: "",
+        password_confirmation: "",
         townid: null
       },
       name: "",
@@ -25,17 +26,17 @@ export default {
   mounted() {
     axios
       .get(this.baseUrl + '/readAllTowns')
-      .then(response => (this.towns = response.data))
+      .then(response => (this.towns = response.data.requestdata))
       .catch(error => this.errors.push(error))
   },
   methods: {
     formdataprocessing() {
       axios
         .post(this.baseUrl + '/createUser', this.user)
-        .then(response => (console.log(response)))
+        .then(response => (console.log(response.data.token)))
         .catch(error => this.errors = error);
       console.log(this.errors);
-      
+
       formreset();
     },
     formreset() {
@@ -51,7 +52,7 @@ export default {
 <template>
   <div id="formpage">
     <navbar />
-    <div id="formview">
+    <div id="form-view">
       <div class="form-container">
         <div class="form-heading">
           <h2 id="form-heading">User registration form</h2>
@@ -82,13 +83,18 @@ export default {
             <input type="password" v-model="user.password" id="password" name="password" class="input-text-field" required
               placeholder="Enter your password">
           </div>
+          <div class="form-item">
+            <label for="confirm_password">Confirm password: </label>
+            <input type="password" v-model="user.password_confirmation" id="confirm_password" name="confirm_password"
+              class="input-text-field" required placeholder="Confirm your password">
+          </div>
+          <div class="form-route-container form-item">
+            <router-link to="/login" class="form-route">Registered already? Login here</router-link>
+            <span class="animated-line"></span>
+          </div>
           <div class="button-container">
-            <div class="form-item">
-              <button type="submit" @click.prevent="formdataprocessing" class="form-submit-button button">Submit</button>
-            </div>
-            <div class="form-item">
-              <button @click.prevent="formreset" class="button form-reset-button">Reset</button>
-            </div>
+            <button type="submit" @click.prevent="formdataprocessing" class="form-submit-button button">Submit</button>
+            <button @click.prevent="formreset" class="button form-reset-button">Reset</button>
           </div>
         </form>
       </div>
@@ -99,7 +105,7 @@ export default {
 
 
 <style scoped>
-#formview {
+#form-view {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -113,7 +119,11 @@ export default {
   padding-left: 50px;
   padding-bottom: 45px;
   padding-top: 20px;
-  border-radius: 20px
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center
 }
 
 .form-container {
@@ -136,7 +146,10 @@ export default {
 }
 
 .form-item {
-  margin: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -150,7 +163,7 @@ export default {
   border: 2.5px solid rgb(112, 112, 112);
 }
 
-.input-text-field:focus-visible,
+.input-text-field:focus-within,
 .input-text-field:hover,
 input-text-field:checked {
   border-color: rgb(58, 147, 243);
@@ -158,7 +171,8 @@ input-text-field:checked {
 }
 
 .form-heading {
-  text-align: center
+  text-align: center;
+  height: 35px
 }
 
 .button-container {
@@ -169,6 +183,7 @@ input-text-field:checked {
 
 .button {
   padding: 12px;
+  margin: 10px;
   font-size: 110%;
   border: 3px solid rgb(97, 97, 97);
   border-radius: 14px;
@@ -188,5 +203,41 @@ input-text-field:checked {
   color: white;
   background-color: rgb(239, 63, 63);
   box-shadow: 3.8px 2.5px 8.4px 0.5px rgba(239, 63, 63, 0.8)
+}
+
+.form-route-container {
+  text-align: center;
+  width: fit-content;
+  height: fit-content;
+  overflow: hidden;
+}
+
+.form-route {
+  text-decoration: none;
+  color: rgb(0, 72, 255);
+  cursor: pointer;
+  transition-property: color, font-size;
+  transition-duration: 0.4s;
+  transition-timing-function: ease-in-out;
+}
+
+.form-route-container:hover>.form-route {
+  color: #ffbf00;
+  font-size: 110%;
+}
+
+.animated-line {
+  height: 0;
+  width: 0;
+  border-top: 1px solid rgb(0, 72, 255);
+  border-bottom: 1px solid rgb(0, 72, 255);
+  transition-property: width, border-color;
+  transition-duration: 0.4s;
+  transition-timing-function: ease-in-out;
+}
+
+.form-route-container:hover>.animated-line {
+  width: 100%;
+  border-color: #ffbf00;
 }
 </style>

@@ -65,7 +65,7 @@ export default {
     async mounted() {
         try {
             const response = await axios.get(this.baseUrl + '/getUserPhoneTown');
-            this.users = response.data;
+            this.users = response.data.requestdata;
         } catch (error) {
             this.errors.push(error);
         }
@@ -103,8 +103,9 @@ export default {
     align-items: center;
     justify-content: start;
     border: 3px solid rgb(66, 66, 66);
-    border-radius: 5px;
+    border-radius: 25px;
     width: 100%;
+    overflow: hidden;
 }
 
 .table-title {

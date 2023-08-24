@@ -16,6 +16,9 @@
                             <router-link to="/userregistrationform" class="dropdown-route register">Register</router-link>
                         </div>
                         <div class="dropdown-route-container">
+                            <router-link to="/login" class="dropdown-route">Login</router-link>
+                        </div>
+                        <div class="dropdown-route-container">
                             <router-link to="/userstable" class="dropdown-route">Users</router-link>
                         </div>
                     </div>
@@ -87,6 +90,7 @@ input[type="checkbox"]{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 
 .dropdown-container {
@@ -101,7 +105,7 @@ input[type="checkbox"]{
     left: inherit;
     border: 0px solid transparent;
     transition-property: max-height, border;
-    transition-duration: 0.6s;
+    transition-duration: 0.2s;
     transition-timing-function: linear;
     background-color: rgb(66, 66, 66)
 }
@@ -126,6 +130,15 @@ input[type="checkbox"]:checked + label >.arrow{
 .dropdown-menu:hover >.dropdown-container{
     max-height: 100px;
     border: 1px solid rgb(66, 66, 66);
+}
+
+.dropdown-menu:hover >.dropdown-button >.arrow{
+    transform: rotate(180deg);
+    border-top-color: white;
+}
+
+.dropdown-menu:hover >.dropdown-button >.route{
+    color: white;
 }
 
 input[type="checkbox"]:checked ~.dropdown-container{
