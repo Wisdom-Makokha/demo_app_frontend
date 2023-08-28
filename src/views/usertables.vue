@@ -59,12 +59,17 @@ export default {
             users: [],
             errors: [],
             baseUrl: "http://127.0.0.1:8000/api",
-            deleteduser: {}
+            deleteduser: {},
+            headers: {
+                Authorization : `Bearer ${localStorage.getItem("token")}`,
+                Accept: "application/json"
+            }
         }
     },
     async mounted() {
+
         try {
-            const response = await axios.get(this.baseUrl + '/getUserPhoneTown');
+            const response = await axios.get(this.baseUrl + '/getUserPhoneTown', {headers: this.headers});
             this.users = response.data.requestdata;
         } catch (error) {
             this.errors.push(error);
@@ -74,12 +79,14 @@ export default {
         async deleteuser(userid) {
             console.log(userid);
             try {
-                const response = await axios.delete(this.baseUrl + '/deleteUser?id=' + userid);
+                const response = await axios.delete(this.baseUrl + '/deleteUser?id=' + userid, {headers: this.headers});
                 // console.log(response.data);
             } catch (error) {
                 this.errors.push(error);
                 // console.log("The error is: " + this.errors[this.errors.length]);
             }
+
+            window.location.reload();
         }
     }
 }

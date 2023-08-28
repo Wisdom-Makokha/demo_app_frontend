@@ -1,4 +1,5 @@
 <script >
+import '../../assets/form_style.css'
 import axios from 'axios'
 import navbar from '../Navigationbar.vue'
 
@@ -20,7 +21,6 @@ export default {
       towns: [],
       errors: [],
       baseUrl: "http://127.0.0.1:8000/api",
-
     }
   },
   mounted() {
@@ -37,7 +37,7 @@ export default {
         .catch(error => this.errors = error);
       console.log(this.errors);
 
-      formreset();
+      formreset;
     },
     formreset() {
       this.user.name = "";
@@ -105,139 +105,5 @@ export default {
 
 
 <style scoped>
-#form-view {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 60px;
-}
 
-#form-body {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding-right: 50px;
-  padding-left: 50px;
-  padding-bottom: 45px;
-  padding-top: 20px;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center
-}
-
-.form-container {
-  background-color: rgb(222, 222, 222);
-  height: fit-content;
-  width: fit-content;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 20px;
-  padding-bottom: 15px;
-  border: 3px solid rgb(157, 157, 157);
-  border-radius: 20px;
-  box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.4)
-}
-
-.user-registration {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-}
-
-.form-item {
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-}
-
-.input-text-field {
-  font-size: 110%;
-  height: 30px;
-  min-width: 340px;
-  border-radius: 6px;
-  border: 2.5px solid rgb(112, 112, 112);
-}
-
-.input-text-field:focus-within,
-.input-text-field:hover,
-input-text-field:checked {
-  border-color: rgb(58, 147, 243);
-  outline-color: rgb(58, 147, 243);
-}
-
-.form-heading {
-  text-align: center;
-  height: 35px
-}
-
-.button-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-
-.button {
-  padding: 12px;
-  margin: 10px;
-  font-size: 110%;
-  border: 3px solid rgb(97, 97, 97);
-  border-radius: 14px;
-  background-color: rgb(176, 176, 176);
-  transition: background-color 0.7s, box-shadow 0.7s ease-in-out;
-  box-shadow: 1.8px 2.5px 3.4px 0.5px rgba(0, 0, 0, 0.6);
-  cursor: pointer
-}
-
-.form-submit-button:hover {
-  color: white;
-  background-color: rgb(86, 125, 205);
-  box-shadow: 3.8px 2.5px 8.4px 0.5px rgba(86, 125, 205, 0.8)
-}
-
-.form-reset-button:hover {
-  color: white;
-  background-color: rgb(239, 63, 63);
-  box-shadow: 3.8px 2.5px 8.4px 0.5px rgba(239, 63, 63, 0.8)
-}
-
-.form-route-container {
-  text-align: center;
-  width: fit-content;
-  height: fit-content;
-  overflow: hidden;
-}
-
-.form-route {
-  text-decoration: none;
-  color: rgb(0, 72, 255);
-  cursor: pointer;
-  transition-property: color, font-size;
-  transition-duration: 0.4s;
-  transition-timing-function: ease-in-out;
-}
-
-.form-route-container:hover>.form-route {
-  color: #ffbf00;
-  font-size: 110%;
-}
-
-.animated-line {
-  height: 0;
-  width: 0;
-  border-top: 1px solid rgb(0, 72, 255);
-  border-bottom: 1px solid rgb(0, 72, 255);
-  transition-property: width, border-color;
-  transition-duration: 0.4s;
-  transition-timing-function: ease-in-out;
-}
-
-.form-route-container:hover>.animated-line {
-  width: 100%;
-  border-color: #ffbf00;
-}
 </style>
